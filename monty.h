@@ -1,20 +1,11 @@
 #ifndef MONTY_H
 #define MONTY_H
 
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <fcntl.h>
-#include <unistd.h>
-#include <stdio.h>
 #include <stdlib.h>
+#include <stdio.h>
 #include <string.h>
+#include <errno.h>
 
-/* MACROS */
-#define SEPARATORS " \n\t\r"
-
-
-
-/* STRUCTURES */
 /**
  * struct stack_s - doubly linked list representation of a stack (or queue)
  * @n: integer
@@ -22,7 +13,7 @@
  * @next: points to the next element of the stack (or queue)
  *
  * Description: doubly linked list node structure
- * for stack, queues, LIFO, FIFO Holberton project
+ * for stack, queues, LIFO, FIFO
  */
 typedef struct stack_s
 {
@@ -37,31 +28,17 @@ typedef struct stack_s
  * @f: function to handle the opcode
  *
  * Description: opcode and its function
- * for stack, queues, LIFO, FIFO Holberton project
+ * for stack, queues, LIFO, FIFO
  */
 typedef struct instruction_s
 {
 	char *opcode;
-	void (*f)(stack_t **stack, unsigned int line_number);
+	void (*f)(stack_t **stack, unsigned int lineNum);
 } instruction_t;
 
-/* GLOBAL VARIABLES */
-extern stack_t **global_free;
+void push(stack_t **stack, int value, unsigned int lineNum);
+void pall(stack_t **stack, unsigned int lineNum);
+void free_stack(stack_t *stack);
 
-/* PROTOTYPES */
-int read_line(FILE *monty_file);
-void monty_function(char *operator, stack_t **node, unsigned int count_lines);
-stack_t *add_node(stack_t **head, const int n);
-void m_push(stack_t **node, unsigned int line_count);
-size_t print_rev(stack_t *h);
-void m_pint(stack_t **node, unsigned int line_count);
-size_t print(stack_t *h);
-void free_all(void);
-void m_swap(stack_t **head, unsigned int count_lines);
-void m_nop(stack_t **head, unsigned int count_lines);
-void m_pall(stack_t **node, unsigned int line_count);
-int delete_node(stack_t **head, unsigned int index);
-void m_pop(stack_t **head, unsigned int line_count);
-void m_add(stack_t **head, unsigned int line_count);
+#endif
 
-#endif /* MONTY_H*/
